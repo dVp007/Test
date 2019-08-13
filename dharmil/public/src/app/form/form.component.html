@@ -1,0 +1,50 @@
+
+<form [formGroup] = "translexForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input formControlName = "name" matInput placeholder="Enter your name">
+    </mat-form-field><br>
+    <!--/name-->
+    <mat-radio-group formControlName ="TOT" aria-label="Type Of Trademark">
+        <mat-radio-button value="1">New</mat-radio-button>
+        <mat-radio-button value="2">Old</mat-radio-button>
+    </mat-radio-group><br>
+    <!--/Tot-->
+    <mat-form-field>
+        <mat-label>Classes</mat-label>
+        <mat-select formControlName = "class">
+          <mat-option value="Class-{{ i+1 }}" *ngFor = "let class of classes;index as i">{{ class }}</mat-option>  
+        </mat-select>
+    </mat-form-field><br>
+    <!--/Class-->
+    <mat-form-field>
+        <mat-label>Type of Entity Registration</mat-label>
+        <mat-select formControlName = "typeOfRegistrtion" (ngModelChange) = "update()" >
+          <mat-option value="Type-{{ i+1 }}" *ngFor = "let type of typeOfRegistrtion;index as i">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field><br>
+    <!--/TOE-->
+    <mat-form-field appearance="outline">
+        <mat-label>Registration Name</mat-label>
+        <input formControlName = "nameOfEntity" matInput placeholder="Name of Registration ">
+    </mat-form-field><br>
+    <!--/Name of Registration-->
+    <mat-form-field>
+        <mat-label>Service Time</mat-label>
+        <mat-select formControlName = "services">
+          <mat-option value="{{ service }}" *ngFor = "let service of services;">{{ service }}</mat-option>
+        </mat-select>
+    </mat-form-field><br>
+    <!--Service Time-->
+    <mat-form-field appearance="outline">
+        <mat-label>Phone No</mat-label>
+        <input formControlName = "phoneNumber" matInput placeholder="Enter phone number">
+    </mat-form-field><br>
+    <!--/Phone Number-->
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName = "email" matInput placeholder="Enter your e-mail">
+    </mat-form-field><br>
+    <!--/Email Number-->
+        <button (click) = "update()" mat-button>Submit</button>
+    </form>
