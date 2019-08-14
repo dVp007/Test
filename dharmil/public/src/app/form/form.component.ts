@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { EnrollmentService } from '../enrollment.service';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -9,13 +10,12 @@ import { Validators } from '@angular/forms';
 export class FormComponent implements OnInit {
   // FormGroup ============================
   translexForm = new FormGroup({
-    name: new FormControl('Dharmil'),
+    name: new FormControl('Het'),
     TOT : new FormControl('trade1'),
-    wordmark : new FormControl('trade1'),
+    wordMark : new FormControl('trade1'),
     class: new FormControl('class1'),
     typeOfRegistrtion: new FormControl('private'),
-    nameOfEntity: new FormControl('Dharmilpvt'),
-    services: new FormControl('Service1'),
+    nameOfEntity: new FormControl('Het-pvt'),
     phoneNumber : new FormControl('9321269168'),
     email: new FormControl('dharmilp03@gmail.com', [
       Validators.required,
@@ -76,11 +76,15 @@ export class FormComponent implements OnInit {
   typeOfRegistrtion = [
     'propreitorship', 'personal', 'LLP', 'SinglePerson', 'Private Ltd' , 'public Ltd' , 'trust' , 'others'
   ];
-
 // Services
   services = ['Urgent' , 'Normal' , 'Relaxed' ];
-  constructor() { }
+  constructor(private enrollmentService: EnrollmentService) { }
   ngOnInit() { }
   update() {
+    this.enrollmentService.enroll(this.translexForm.value).subscribe(
+      translex => {
+        console.log(translex);
+      }
+    );
   }
 }

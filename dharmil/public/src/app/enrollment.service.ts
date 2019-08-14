@@ -4,13 +4,23 @@ import { Observable } from 'rxjs';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EnrollmentService {
-  url = '127.0.0.1:8000/add';
-  constructor(private http: HttpClient) { }
+  url = 'http://localhost:8000/add';
+  constructor(
+    private http: HttpClient
+  ) { }
   // enroll service
   enroll( translex ): Observable<any> {
-    return this.http.post<any>(this.url, translex);
+    console.log('Inside enroll doing posting ', translex);
+    console.log(this.http.post);
+    const headers = {'Content-Type': 'application/json; charset=utf-8'};
+    return this.http.post<any>(this.url, { headers, translex});
+  }
+  uploadFile( file ) {
+    const url = 'http://localhost:8000/upload';
+    console.log( file )
+    return this.http.post<any>(url, file );
   }
 }

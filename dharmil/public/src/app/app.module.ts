@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
 // vendor
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,20 +29,28 @@ import {
   MatChipsModule,
   MatTooltipModule,
   MatTableModule,
+  MatCardModule,
   MatPaginatorModule,
   MAT_RADIO_DEFAULT_OPTIONS,
 } from '@angular/material';
 import { FormComponent } from './form/form.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CardComponent } from './card/card.component';
+import { FileComponent } from './file/file.component';
 
 const routes: Routes = [
   { path: '', component: AppComponent },
-  { path: 'forms', component: FormComponent}
+  { path: 'forms', component: FormComponent},
+  { path: 'card', component: CardComponent },
+  { path: 'file', component: FileComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    CardComponent,
+    FileComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -69,13 +76,17 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    MatCardModule
   ],
   exports: [RouterModule],
-  providers: [{
-    provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: { color: 'primary' }
-  }],
+  providers: [
+    {
+      provide: MAT_RADIO_DEFAULT_OPTIONS,
+      useValue: { color: 'primary' }
+    }
+],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
