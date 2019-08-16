@@ -21,17 +21,6 @@ module.exports = function(app) {
 
     app.post('/add',function(req,res){
         console.log(req.body);
-        let formSchema = new mongoose.Schema({
-            name:String,
-            TOT:String,
-            wordMark:String,
-            class:String,
-            typeOfRegistration:String,
-            nameOfEntity:String,
-            phoneNumber:Number,
-            email:String,
-        });
-
         var db = mongoose.model('Test',formSchema);
 
         db.insertMany(req.body.translex,function(err,data){

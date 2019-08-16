@@ -12,7 +12,7 @@ export class FileComponent implements OnInit {
   ngOnInit() {}
   upload(Efile) {
     console.log(Efile.target.files[0]);
-    const ufile = Efile.target.files[0]
+    const ufile = Efile.target.files[0];
     this.enrollment.uploadFile( ufile ).subscribe(
     filed => {
         console.log( filed );

@@ -20,7 +20,7 @@ export class EnrollmentService {
   }
   uploadFile( file ) {
     const url = 'http://localhost:8000/upload';
-    console.log( file )
+    console.log( file );
     return this.http.post<any>(url, file );
   }
 }
