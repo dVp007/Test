@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { EnrollmentService } from '../enrollment.service';
 import { FormSubmissionService } from '../form-submission.service';
 import { Form } from '../interfaces/Form';
-
+import { flex-layout } from '@angular/flex-lay'
 
 @Component({
   selector: 'app-form',
@@ -145,30 +145,34 @@ export class FormComponent implements OnInit {
   }
 
   addAddress() {
-    if ( this.translexForm.get('addresses').length === 2) {
+    const address = this.translexForm.get('addresses') as FormArray;
+    console.log(address);
+    if ( address.length === 2) {
       return 0;
     }
-    this.translexForm.get('addresses').push( this.addressForm());
+    address.push( this.addressForm());
   }
 
-  removeAddress(i) {
-    if ( this.translexForm.get('addresses').length === 0) {
+  removeAddress( i ) {
+    const address = this.translexForm.get( 'addresses' ) as FormArray;
+    if ( address.length === 0) {
       return 0;
     }
-    this.translexForm.get('addresses').removeAt(i);
+    address.removeAt(i);
   }
 
   compareEntity() {
     console.log(this.translexForm.value );
+    const regType = this.translexForm.get('typeOfRegistration').value; // type of registration
+    const entityName = this.translexForm.get('nameOfEntity').value; // name of Entity
+    const registName = this.translexForm.get('registeringEntity').value; // registering Entity
     // tslint:disable-next-line:max-line-length
-    if ( (this.translexForm.get('typeOfRegistration').value === this.typeOfRegistration[0]) || this.translexForm.get('typeOfRegistration').value === this.typeOfRegistration[1]) { 
+    if ((regType === this.typeOfRegistration[0]) ||(regType === this.typeOfRegistration[1])) {
       return 0;
-    } else if ((this.translexForm.get('nameOfEntity').value === this.translexForm.get('registeringEntity').value)) {
-      console.log('Should we Change the type of entity to personal??')
+    } else if (entityName === registName) {
+      console.log('Should we Change the type of entity to personal??');
     } else {
-      console.log('Providing an authority letter? or register in the name of the company')
+      console.log('Providing an authority letter? or register in the name of the company');
     }
-    console.log(this.translexForm.get('nameOfEntity').value);
-    console.log(this.translexForm.get('name').value);
   }
 }

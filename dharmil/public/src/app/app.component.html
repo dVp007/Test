@@ -1,15 +1,15 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" class="header">
   <div>Translex</div>
-  <span class="nav-tool-items">
-    <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
-  </span>
 </mat-toolbar>
 
 <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" closed>  
+    </mat-sidenav>
   <!-- Main content -->
-  <mat-sidenav-content autosize>
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
   <!-- end of main content-->
+
 </mat-sidenav-container>
