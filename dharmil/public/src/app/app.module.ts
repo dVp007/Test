@@ -32,6 +32,7 @@ import {
   MatCardModule,
   MatPaginatorModule,
   MAT_RADIO_DEFAULT_OPTIONS,
+  MatCheckboxModule,
 } from '@angular/material';
 import { FormComponent } from './form/form.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -78,7 +79,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
   ],
   exports: [RouterModule],
   providers: [

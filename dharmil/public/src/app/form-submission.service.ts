@@ -7,9 +7,9 @@ import { Form } from './interfaces/Form';
   providedIn: 'root'
 })
 export class FormSubmissionService {
-  url = 'http://localhost:8000/add';
+  url = 'http://localhost:8004/add';
   constructor(private http: HttpClient) { }
-  submit(form: Form) {
+  submit(form) {
     return this.http.post<Form>(this.url, form);
   }
 }

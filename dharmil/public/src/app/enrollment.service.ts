@@ -19,8 +19,11 @@ export class EnrollmentService {
     return this.http.post<any>(this.url, { headers, translex});
   }
   uploadFile( file ) {
-    const url = 'http://localhost:8000/upload';
+    const url = 'http://localhost:8005/upload';
     console.log( file );
-    return this.http.post<any>(url, file );
+    return this.http.post<any>(url, file, {
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 }

@@ -1,99 +1,158 @@
-<form [formGroup] = "translexForm">
-    <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
-        <input formControlName = "name" matInput placeholder="Enter your name">
-        <mat-error *ngIf="translexForm.status==='INVALID'">Improper name</mat-error>
-    </mat-form-field><br>
-    <!--/name-->
 
-    <mat-radio-group formControlName ="typeOfTrademark" aria-label="Type Of Trademark">
-        <mat-radio-button value="new">New</mat-radio-button>
-        <mat-radio-button value="old">Old</mat-radio-button>
-    </mat-radio-group><br>
-    <!--/typeOfTrademark-->
-    <h1>Address</h1>
-    <button (click)="addAddress()" mat-button> Add Address</button>
-    <div formArrayName="addresses"
-        *ngFor="let address of translexForm.get('addresses').controls; let i = index;">
-            <div [formGroupName]="i">
-                <mat-form-field appearance="outline">
-                    <mat-label>City</mat-label>
-                    <input formControlName = "city" matInput placeholder="Enter your city">
-                    <mat-error *ngIf="translexForm.status==='INVALID'">Improper city</mat-error>
-                </mat-form-field>
-                <!--/ City-->
-                <mat-form-field appearance="outline">
-                    <mat-label>State</mat-label>
-                    <input formControlName = "state" matInput placeholder="Enter your state">
-                    <mat-error *ngIf="translexForm.status==='INVALID'">Improper State</mat-error>
-                </mat-form-field>
-                <!--/ State-->
-                <mat-form-field appearance="outline">
-                    <mat-label>Pincode</mat-label>
-                    <input formControlName = "pincode" matInput placeholder="Enter your pincode">
-                    <mat-error *ngIf="translexForm.status==='INVALID'">Improper Pincode</mat-error>
-                </mat-form-field>
-                <!-- /Pincode-->
-                <button *ngIf="i!=0" (click)="removeAddress(i)">Remove</button>
-            </div>
-            
-    </div>
-    <!--/Address-->
-    <mat-form-field appearance="outline">
-        <mat-label>Word Mark</mat-label>
-        <input formControlName = "wordMark" matInput placeholder="Enter your name">
-        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Wordmark</mat-error>
-    </mat-form-field><br>
-    <!--/wordmark-->
-    <mat-form-field>
-        <mat-label>Classes</mat-label>
-        <mat-select formControlName = "class">
-          <mat-option value="Class-{{ i+1 }}" *ngFor = "let class of classes;index as i">{{ class }}</mat-option>  
-        </mat-select>
-    </mat-form-field><br>
-    <!--/Class-->
+<mat-card>
+    <mat-card-title>Trade Mark Form</mat-card-title>
+        <hr>
+        <mat-card-content>
+                <form [formGroup] = "translexForm">
+                <div class="catOfMark">
+                    <div class="catHeader">
+                        <label>Category of Mark</label>
+                        <mat-radio-group class="catOfMark" (change) = "updateMark()" formControlName ="categoryOfMark" aria-label="Category of Mark">
+                            <mat-radio-button value="wordMark" >WordMark</mat-radio-button>
+                            <mat-radio-button value="deviceMark">DeviceMark</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="catContent">
+                        <!--wordMark-->
+                        <mat-form-field>
+                                <mat-label>Word Mark</mat-label>
+                                <input formControlName = "wordMark" matInput placeholder="Enter your name">
+                                <mat-error *ngIf="translexForm.status==='INVALID'">Improper Wordmark</mat-error>
+                        </mat-form-field>
+                    <!--/wordmark-->    
+                    <mat-form-field>
+                            <mat-label>Device Mark</mat-label>
+                            <input formControlName = "deviceMark" matInput placeholder="Enter Device Mark">
+                            <mat-error *ngIf="translexForm.status==='INVALID'">Improper DeviceMark</mat-error>
+                    </mat-form-field>
+                    <!--/DeviceMark-->
+                    </div>
+                    
+                    </div>
+                    
+                    
+                    <mat-form-field>
+                            <mat-label>Classes</mat-label>
+                            <mat-select (selectionChange)="checkAvailable()" formControlName = "class" multiple>
+                                <mat-option>Select All</mat-option>
+                                <mat-optgroup *ngFor="let group of classGroups" [label]="group.name"
+                                              [disabled]="group.disabled">
+                                  <mat-option *ngFor="let class of group.class" [value]="class.value">
+                                    {{ class.viewValue }}
+                                  </mat-option>
+                                </mat-optgroup>
+                            </mat-select>
+                    </mat-form-field><br>
+                    <!--/Class-->
+                    
+                    
+                    
+                    <!--Name-->
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input formControlName = "name" matInput placeholder="Enter name">
+                            <mat-error *ngIf="translexForm.status==='INVALID'">Improper name</mat-error>
+                        </mat-form-field>
+                        <!--/ name-->
+                    <!-- <mat-radio-group (change)="updateAttr()" formControlName ="typeOfTrademark" aria-label="Type Of Trademark">
+                        <mat-radio-button value="new" selected >New</mat-radio-button>
+                        <mat-radio-button value="renewal">Renewal</mat-radio-button>
+                    </mat-radio-group><br> -->
+                    <!--/ typeOfTrademark-->
+                    <br><mat-form-field appearance="outline">
+                        <mat-label>Trade-Mark No</mat-label>
+                        <input formControlName = "tradeMarkNumber" matInput placeholder="Enter Trade Mark Number">
+                        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Trade-Mark Number</mat-error>
+                    </mat-form-field><br>
+                    <!--/ Trade-Mark-Number-->
+                    <h1>Address</h1>
+                    <button (click)="addAddress()" mat-button> Add Address</button>
+                    <div formArrayName="addresses"
+                        *ngFor="let address of translexForm.get('addresses').controls; let i = index;">
+                            <div [formGroupName]="i">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>City</mat-label>
+                                    <input formControlName = "city" matInput placeholder="Enter your city">
+                                    <mat-error *ngIf="translexForm.status==='INVALID'">Improper city</mat-error>
+                                </mat-form-field>
+                                <!--/ City-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>State</mat-label>
+                                    <input formControlName = "state" matInput placeholder="Enter your state">
+                                    <mat-error *ngIf="translexForm.status==='INVALID'">Improper State</mat-error>
+                                </mat-form-field>
+                                <!--/ State-->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Pincode</mat-label>
+                                    <input formControlName = "pincode" matInput placeholder="Enter your pincode">
+                                    <mat-error *ngIf="translexForm.status==='INVALID'">Improper Pincode</mat-error>
+                                </mat-form-field>
+                                <!-- /Pincode-->
+                                <button *ngIf="i!=0" (click)="removeAddress(i)">Remove</button>
+                            </div>
+                            
+                    </div>
+                    <!--/Address-->
 
-    <mat-form-field>
-        <mat-label>Type of Entity Registration</mat-label>
-        <mat-select formControlName = "typeOfRegistration" (ngModelChange) = "update()" >
-          <mat-option value="{{ type }}" *ngFor = "let type of typeOfRegistration;index as i">{{ type }}</mat-option>
-        </mat-select>
-      </mat-form-field><br>
-    <!--/TOE-->
-    <mat-form-field appearance="outline">
-        <mat-label>Entity Name</mat-label>
-        <input formControlName = "nameOfEntity" matInput placeholder="Name of Entity ">
-        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Entity Name</mat-error>
-    </mat-form-field><br>
-    <!--Name of Entity-->
-    <mat-form-field appearance="outline">
-        <mat-label>Registering Entity</mat-label>
-        <input formControlName = "registeringEntity" matInput placeholder="Name of Registering Entity ">
-        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Registration Name</mat-error>
-    </mat-form-field><br>
-    <!--/Name of Registration-->
-    <mat-form-field>
-        <mat-label>Service Time</mat-label>
-        <mat-select formControlName = "services">
-          <mat-option value="{{ service }}" *ngFor = "let service of services;">{{ service }}</mat-option>
-        </mat-select>
-    </mat-form-field><br>
-    <!--Service Time-->
-    <mat-form-field appearance="outline">
-        <mat-label>Phone No</mat-label>
-        <input formControlName = "phoneNumber" matInput placeholder="Enter phone number">
-        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Phone Number</mat-error>
-    </mat-form-field><br>
-    <!--/Phone Number-->
-    <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input formControlName = "email" matInput placeholder="Enter your e-mail">
-        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Email</mat-error>
-    </mat-form-field>
-    <!--/Email Number-->
-        <button (click) = "update()" mat-button>Submit</button>
-        <button (click) = "compareEntity()" mat-button>Compare</button>
-    </form>
-    <h1>
-        {{pricing}}
-    </h1>
+                    
+                
+                    <mat-form-field>
+                        <mat-label>City of Registration</mat-label>
+                        <mat-select formControlName = "cityOfRegistration">
+                            <div *ngFor="let group of cityGroup">
+                              <mat-option *ngFor="let singleCity of group.city" [value]="singleCity.value">
+                                {{ singleCity.viewValue }}
+                              </mat-option>
+                            </div>
+                        </mat-select>
+                    </mat-form-field><br>
+                    <!--/City of registration-->
+                    <mat-form-field>
+                        <mat-label>Type of Entity Registration</mat-label>
+                        <mat-select (selectionChange)="pricing()" formControlName = "typeOfRegistration" >
+                          <mat-option value="{{ type }}" *ngFor = "let type of typeOfRegistration;index as i">{{ type }}</mat-option>
+                        </mat-select>
+                      </mat-form-field><br>
+                    <!--/TOE-->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Entity Name</mat-label>
+                        <input formControlName = "nameOfEntity" matInput placeholder="Name of Entity ">
+                        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Entity Name</mat-error>
+                    </mat-form-field><br>
+                    <!--Name of Entity-->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Trading as</mat-label>
+                        <input formControlName = "registeringEntity" matInput placeholder="Name of Registering Entity ">
+                        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Registration Name</mat-error>
+                    </mat-form-field><br>
+                    <!--/Name of Registration-->
+                    <mat-form-field>
+                        <mat-label>Service Time</mat-label>
+                        <mat-select (selectionChange)="pricing()" formControlName = "services">
+                          <mat-option value="{{ service.value }}" *ngFor = "let service of services;">{{ service.viewName }}</mat-option>
+                        </mat-select>
+                    </mat-form-field><br>
+                    <!--Service Time-->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone No</mat-label>
+                        <input formControlName = "phoneNumber" matInput placeholder="Enter phone number">
+                        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Phone Number</mat-error>
+                    </mat-form-field><br>
+                    <!--/Phone Number-->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName = "email" matInput placeholder="Enter your e-mail">
+                        <mat-error *ngIf="translexForm.status==='INVALID'">Improper Email</mat-error>
+                    </mat-form-field><br>
+
+                    <mat-checkbox color="primary">I hereby verify that above mentioned facts are true
+                            and correct to best of my knowledge and belief.</mat-checkbox>
+                    <!--/Email Number-->
+                        <button (click) = "update()" mat-button>Submit</button>
+                        <button (click) = "compareEntity()" mat-button>Compare</button>
+                        <button (click) = "pricing()" mat-button>Pricing</button>
+                    </form>
+        </mat-card-content>
+</mat-card>
+
+<div class="left-side"><h1>Rs : {{ finalPrice }}</h1></div>

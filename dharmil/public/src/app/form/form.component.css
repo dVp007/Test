@@ -1,0 +1,35 @@
+mat-card{
+    width:40%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)!important;
+}
+mat-radio-group.catOfMark{
+    width:100%;
+}
+div.catOfMark{
+    margin:10px;
+}
+div.catHeader{
+    margin:2%;
+    display: flex;
+    justify-content: space-around;
+}
+mat-radio-group{
+    display: flex;
+    justify-content: space-around;
+}
+div.catContent{
+    display: flex;
+    justify-content:space-between;
+    padding:2%;
+}
+mat-form-field{
+    width:15em;
+}
+div.left-side{
+    position: sticky;
+    float: right;
+    bottom: 50%;
+    display: block;
+    padding: 10px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)!important;
+}
